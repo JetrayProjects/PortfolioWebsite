@@ -6,7 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion, AnimatePresence } from "motion/react";
 import { FloatingHomeButton } from "@/components/ui/floating-home-button";
-import { ChevronRight, Plus, X, CheckCircle2 } from "lucide-react";
+import { ChevronRight, Plus, X, CheckCircle2, Loader2 } from "lucide-react";
+import { sendProjectBrief } from "./actions";
 import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
@@ -21,7 +22,7 @@ const formSchema = z.object({
     about: z.string().min(10, "Please describe what the website is about"),
     websiteName: z.string().min(2, "Website name is required"),
     sections: z.string().min(1, "Please list requested sections"),
-    hasMedia: z.boolean(),
+    mediaStatus: z.enum(["yes", "no"]),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -38,6 +39,7 @@ const categories = [
 
 export default function RequestPage() {
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isPending, setIsPending] = useState(false);
 
     const {
         register,
@@ -50,7 +52,7 @@ export default function RequestPage() {
         defaultValues: {
             fonts: "",
             colors: ["#000000", "#ffffff", "#3b82f6", "#10b981"],
-            hasMedia: false,
+            mediaStatus: "no",
         },
     });
 
@@ -59,12 +61,22 @@ export default function RequestPage() {
         name: "colors" as never,
     });
 
-    const hasMedia = watch("hasMedia");
+    const mediaStatus = watch("mediaStatus");
 
     const onSubmit = async (data: FormData) => {
-        console.log("Form submitted:", data);
-        // Information will be stored via Resend later when user provides API key
-        setIsSubmitted(true);
+        setIsPending(true);
+        try {
+            const result = await sendProjectBrief(data);
+            if (result.success) {
+                setIsSubmitted(true);
+            } else {
+                alert("Something went wrong: " + result.error);
+            }
+        } catch (error) {
+            alert("Error submitting form. Please try again.");
+        } finally {
+            setIsPending(false);
+        }
     };
 
     if (isSubmitted) {
@@ -111,17 +123,8 @@ export default function RequestPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="text-5xl md:text-7xl font-sans font-bold tracking-tight"
                     >
-                        Project Brief
+                        Describe your desired website..
                     </motion.h1>
-                    <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.1 }}
-                        className="text-white/40 font-sans text-lg md:text-xl max-w-xl"
-                    >
-                        High-end digital solutions tailored to your vision.
-                        Provide the technical details below.
-                    </motion.p>
                 </div>
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-24">
@@ -269,47 +272,85 @@ export default function RequestPage() {
                         </div>
                     </Section>
 
-                    {/* 8. Checkbox: Media */}
+                    {/* 8. Media Assets */}
                     <Section num="08" title="Media Assets">
-                        <label className="flex items-start gap-5 group cursor-pointer bg-white/5 p-8 rounded-3xl border border-white/10 hover:bg-white/[0.07] transition-all">
-                            <div className="relative flex items-center h-7 pt-1">
-                                <input
-                                    type="checkbox"
-                                    {...register("hasMedia")}
-                                    className="peer h-7 w-7 rounded-lg border-2 border-white/10 bg-transparent checked:bg-white checked:border-white transition-all appearance-none cursor-pointer"
-                                />
-                                <div className="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none">
-                                    <ChevronRight className="w-4 h-4 text-black transform rotate-90" strokeWidth={3} />
-                                </div>
+                        <div className="space-y-6">
+                            <p className="text-xl font-sans font-medium text-white/70">
+                                Do you have existing photos or videos for the project?
+                            </p>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <label className={cn(
+                                    "flex items-center gap-4 group cursor-pointer p-6 rounded-2xl border transition-all",
+                                    mediaStatus === "yes" ? "bg-white/10 border-white/40" : "bg-white/5 border-white/10 hover:bg-white/[0.07]"
+                                )}>
+                                    <div className="relative flex items-center h-5">
+                                        <input
+                                            type="radio"
+                                            value="yes"
+                                            {...register("mediaStatus")}
+                                            className="peer h-5 w-5 rounded border-2 border-white/10 bg-transparent checked:bg-white checked:border-white transition-all appearance-none cursor-pointer"
+                                        />
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none">
+                                            <ChevronRight className="w-3 h-3 text-black transform rotate-90" strokeWidth={4} />
+                                        </div>
+                                    </div>
+                                    <span className="text-lg font-sans font-medium">Yes, I have assets</span>
+                                </label>
+
+                                <label className={cn(
+                                    "flex items-center gap-4 group cursor-pointer p-6 rounded-2xl border transition-all",
+                                    mediaStatus === "no" ? "bg-white/10 border-white/40" : "bg-white/5 border-white/10 hover:bg-white/[0.07]"
+                                )}>
+                                    <div className="relative flex items-center h-5">
+                                        <input
+                                            type="radio"
+                                            value="no"
+                                            {...register("mediaStatus")}
+                                            className="peer h-5 w-5 rounded border-2 border-white/10 bg-transparent checked:bg-white checked:border-white transition-all appearance-none cursor-pointer"
+                                        />
+                                        <div className="absolute inset-0 flex items-center justify-center opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none">
+                                            <ChevronRight className="w-3 h-3 text-black transform rotate-90" strokeWidth={4} />
+                                        </div>
+                                    </div>
+                                    <span className="text-lg font-sans font-medium">No assets yet</span>
+                                </label>
                             </div>
-                            <div className="space-y-2">
-                                <span className="text-xl font-sans font-medium text-white/70 group-hover:text-white transition-colors">
-                                    I have existing photos or videos for the project
-                                </span>
-                                <AnimatePresence>
-                                    {hasMedia && (
-                                        <motion.p
-                                            initial={{ opacity: 0, height: 0 }}
-                                            animate={{ opacity: 1, height: "auto" }}
-                                            exit={{ opacity: 0, height: 0 }}
-                                            className="text-sm text-white/30 font-sans tracking-tight leading-relaxed"
-                                        >
-                                            Technical Note: We handle file collection via secure transfer. I will reach out personally to sync your assets once the brief is reviewed.
-                                        </motion.p>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        </label>
+
+                            <AnimatePresence>
+                                {mediaStatus === "yes" && (
+                                    <motion.p
+                                        initial={{ opacity: 0, height: 0 }}
+                                        animate={{ opacity: 1, height: "auto" }}
+                                        exit={{ opacity: 0, height: 0 }}
+                                        className="text-sm text-white/30 font-sans leading-relaxed"
+                                    >
+                                        Technical Note: We handle file collection via secure transfer. I will reach out personally to sync your assets once the brief is reviewed.
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </Section>
 
                     {/* Submit Button */}
                     <div className="pt-10">
                         <button
                             type="submit"
-                            className="group relative w-full md:w-auto px-16 py-6 bg-white text-black text-xl font-sans font-bold rounded-full overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98] shadow-2xl"
+                            disabled={isPending}
+                            className="group relative w-full md:w-auto px-10 py-4 bg-white text-black text-lg font-sans font-bold rounded-full overflow-hidden transition-all hover:scale-[1.02] active:scale-[0.98] shadow-2xl disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            <span className="relative z-10 transition-colors">Submit Project Brief</span>
-                            <div className="absolute inset-0 bg-neutral-100 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                            <span className="relative z-10 flex items-center justify-center gap-2">
+                                {isPending ? (
+                                    <>
+                                        <Loader2 className="w-5 h-5 animate-spin" />
+                                        Processing...
+                                    </>
+                                ) : (
+                                    "Submit Project Brief"
+                                )}
+                            </span>
+                            {!isPending && (
+                                <div className="absolute inset-0 bg-neutral-100 transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                            )}
                         </button>
                     </div>
                 </form>
