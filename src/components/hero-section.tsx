@@ -125,7 +125,7 @@ export function HeroSection({ onSectionClick }: { onSectionClick?: (href: string
             </div>
 
             {/* Hint text */}
-            <div className="absolute bottom-10 left-0 right-0 text-center text-white/30 text-sm z-10 pointer-events-none uppercase tracking-[0.2em]">
+            <div className="absolute top-10 left-0 right-0 text-center text-white/30 text-sm z-10 pointer-events-none uppercase tracking-[0.2em]">
                 {isMobile ? "Tap to explore" : "Hover to reveal"}
             </div>
         </div>
