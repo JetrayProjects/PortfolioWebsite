@@ -23,7 +23,7 @@ export async function sendProjectBrief(data: any) {
 
         const { data: result, error } = await resend.emails.send({
             from: "Portfolio Brief <onboarding@resend.dev>",
-            to: ["sahiljartare@gmail.com"], // Using the email you likely signed up with
+            to: ["jartaresbizz@gmail.com"], // Using the email you signed up with
             subject: `New Project Brief: ${websiteName} from ${name}`,
             html: `
                 <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; color: #111;">
