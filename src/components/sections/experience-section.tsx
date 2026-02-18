@@ -16,6 +16,22 @@ const experiences: ExperienceData[] = [
         color: "#18181B",
     },
     {
+        employer: "Temple University",
+        position: "Peer Tutor",
+        role: "Part-time",
+        date: "September 2024 - December 2025",
+        description: "Dedicated to supporting students in resolving queries related to Computer and Information Science courses, including C, Java, Python, Data Structures and Algorithms, and Calculus, among others.",
+        color: "#27272A",
+    },
+    {
+        employer: "Project Destined",
+        position: "Real Estate Private Equity Intern",
+        role: "Internship",
+        date: "July 2025 - August 2025",
+        description: "Participated in a 5-week real estate private equity training program, where I will be underwriting three multifamily deals in both team and individual settings, culminating in a private equity investment competition.",
+        color: "#3F3F46",
+    },
+    {
         employer: "Manzanita K.K",
         position: "Data Science Intern",
         role: "Internship",
@@ -23,22 +39,6 @@ const experiences: ExperienceData[] = [
         description: `- Developed an automated Instagram scraper in Python using Selenium library to extract public user information
 - Finetuned and optimized AI models like YOLO, NLPconnect and Salesforce BLIP to analyze 1200+ images for user behavior insights
 - Designed automated data pipelines, integrating Pandas, NumPy, PIL, Matplotlib, improving dataset processing efficiency`,
-        color: "#27272A",
-    },
-    {
-        employer: "Temple University",
-        position: "Peer Tutor",
-        role: "Part-time",
-        date: "September 2024 - December 2025",
-        description: "Dedicated to supporting students in resolving queries related to Computer and Information Science courses, including C, Java, Python, Data Structures and Algorithms, and Calculus, among others.",
-        color: "#3F3F46",
-    },
-    {
-        employer: "Project Destined",
-        position: "Real Estate Private Equity Intern ",
-        role: "Internship",
-        date: "July 2025 - August 2025",
-        description: "Participating in a 5-week real estate private equity training program, where I will be underwriting three multifamily deals in both team and individual settings, culminating in a private equity investment competition.",
         color: "#52525B",
     },
     {
@@ -56,12 +56,15 @@ export function ExperienceSection({ className }: { className?: string }) {
         <section className={cn("relative z-10", className)}>
             <ExperienceStack experiences={experiences}>
                 <div className='text-white h-screen w-full flex items-center justify-center relative'>
-                    <div className="relative z-10 max-w-4xl px-8 text-center space-y-6 animate-in fade-in duration-700">
+                    <div className="relative z-10 max-w-4xl px-8 text-center space-y-4 animate-in fade-in duration-700">
                         <h1 className='text-5xl md:text-7xl font-serif font-semibold tracking-tight leading-[120%] bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent'>
                             Experience
                         </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 font-serif">
-                            Scroll down to explore my professional journey
+                        <p className="text-sm uppercase tracking-[0.3em] text-white/40 font-medium">
+                            scroll to see
+                        </p>
+                        <p className="text-xl md:text-2xl text-gray-300 font-serif leading-relaxed">
+                            Computer Science & Economics student at Temple University, specializing in AI Research, Software Engineering, and Data Analysis.
                         </p>
                     </div>
                 </div>

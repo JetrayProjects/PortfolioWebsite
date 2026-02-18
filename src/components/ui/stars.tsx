@@ -4,7 +4,6 @@ import {
     type HTMLMotionProps,
     motion,
     type SpringOptions,
-    type Transition,
     useMotionValue,
     useSpring,
 } from "motion/react";
@@ -52,7 +51,7 @@ function StarLayer({
             {...props}
         >
             <div
-                className="absolute bg-transparent rounded-full"
+                className="absolute bg-transparent rounded-full left-1/2"
                 style={{
                     width: `${size}px`,
                     height: `${size}px`,
@@ -61,7 +60,7 @@ function StarLayer({
             />
             {/* Duplicate for seamless looping if needed, or simply extended height */}
             <div
-                className="absolute bg-transparent rounded-full top-[2000px]"
+                className="absolute bg-transparent rounded-full left-1/2 top-[2000px]"
                 style={{
                     width: `${size}px`,
                     height: `${size}px`,

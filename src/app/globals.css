@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Prata&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -141,4 +142,10 @@
   font-family: var(--font-instrument-serif), serif;
   font-weight: 400;
   font-style: italic;
+}
+
+.prata-regular {
+  font-family: "Prata", serif;
+  font-weight: 400;
+  font-style: normal;
 }

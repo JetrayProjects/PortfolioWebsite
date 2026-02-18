@@ -14,7 +14,7 @@ export function ContactSection({ className }: { className?: string }) {
                     <h1 className='text-5xl md:text-7xl font-serif font-semibold tracking-tight leading-[120%] bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent mb-6'>
                         Contact
                     </h1>
-                    <p className="text-xl md:text-2xl text-gray-300 font-serif">
+                    <p className="text-xl md:text-2xl text-gray-300 prata-regular">
                         Let's connect and create something amazing together
                     </p>
                 </div>
@@ -25,7 +25,7 @@ export function ContactSection({ className }: { className?: string }) {
                         className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all hover:scale-105 cursor-pointer"
                     >
                         <Phone className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
-                        <span className="text-lg text-white font-serif">Phone</span>
+                        <span className="text-lg text-white prata-regular">Phone</span>
                     </Link>
 
                     <Link
@@ -35,7 +35,7 @@ export function ContactSection({ className }: { className?: string }) {
                         className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all hover:scale-105 cursor-pointer"
                     >
                         <Linkedin className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
-                        <span className="text-lg text-white font-serif">LinkedIn</span>
+                        <span className="text-lg text-white prata-regular">LinkedIn</span>
                     </Link>
 
                     <Link
@@ -45,7 +45,7 @@ export function ContactSection({ className }: { className?: string }) {
                         className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all hover:scale-105 cursor-pointer"
                     >
                         <Github className="w-5 h-5 text-white group-hover:rotate-12 transition-transform" />
-                        <span className="text-lg text-white font-serif">GitHub</span>
+                        <span className="text-lg text-white prata-regular">GitHub</span>
                     </Link>
 
                     <Link
@@ -54,7 +54,7 @@ export function ContactSection({ className }: { className?: string }) {
                         className="group relative flex items-center justify-center gap-3 px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 rounded-xl transition-all hover:scale-105 cursor-pointer"
                     >
                         <Download className="w-5 h-5 text-white group-hover:translate-y-1 transition-transform" />
-                        <span className="text-lg text-white font-serif">Resume</span>
+                        <span className="text-lg text-white prata-regular">Resume</span>
                     </Link>
                 </div>
 

@@ -2,9 +2,16 @@
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function sendProjectBrief(data: any) {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    if (!apiKey) {
+        console.error("❌ RESEND_API_KEY is missing from environment variables");
+        return { success: false, error: "Server configuration error: Missing Email API Key" };
+    }
+
+    const resend = new Resend(apiKey);
+
     try {
         const {
             name,

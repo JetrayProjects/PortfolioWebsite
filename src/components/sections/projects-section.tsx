@@ -48,6 +48,9 @@ export function ProjectsSection({ className }: { className?: string }) {
                     <h1 className='text-5xl md:text-7xl font-serif font-semibold tracking-tight leading-[120%] bg-gradient-to-b from-white to-white/60 bg-clip-text text-transparent mb-6'>
                         Projects
                     </h1>
+                    <p className="text-sm uppercase tracking-[0.3em] text-white/40 font-medium">
+                        scroll to see
+                    </p>
                 </div>
                 <ProjectCarousel projects={projects} />
             </div>

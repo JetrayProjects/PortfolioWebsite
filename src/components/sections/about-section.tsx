@@ -11,7 +11,7 @@ export function AboutSection({ className }: { className?: string }) {
                     About Me
                 </h1>
 
-                <div className="space-y-6 text-xl leading-relaxed text-gray-300 font-serif">
+                <div className="space-y-6 text-xl leading-relaxed text-gray-300 prata-regular">
                     <p>
                         I’m Sahil Jartare, a Computer Science and Economics double major at Temple University who enjoys building things that sit at the intersection of AI, data, and real-world problem solving. I’ve worked on projects ranging from Vision Transformers and VQGAN models for spatial reasoning research to full-stack web apps using React, Django, and Spring Boot.
                     </p>
